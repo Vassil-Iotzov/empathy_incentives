@@ -100,12 +100,11 @@ r.squaredGLMM(model.hddm)
 model.betas_mean<-lm(formula=ai_betas_average_scaled[1:31] ~ empathy_ratings_ln_scaled[1:31],data = empathy_incentives_df)
 summary(model.betas_mean)
 
-###############################################################################
-
 #The financial incentive has a differential effect on anterior insular activation in high and low empathic individuals
 model.betas_mean<-lmer(formula=ai_betas_average_scaled ~ empathy_ratings_ln_scaled*v_scaled*condition +  (1|id), data = empathy_incentives_df)
 summary(model.betas_mean)
 Anova(model.betas_mean,   type = 3) #Type 3 because of sig. interaction effects.
+r.squaredGLMM(model.betas_mean)
 
 #Unpacking this three-way interaction,we tested the relationship between v, induction_ratio and impression separately in emp and emp_bonus
 model.betas_mean_emp<-lm(formula=ai_betas_average_scaled[1:31] ~ empathy_ratings_ln_scaled[1:31]*v_scaled[1:31], data = empathy_incentives_df)
@@ -116,4 +115,5 @@ summary(model.betas_mean_emp)
 #The robustness of the differential effects in the empathy-bonus and the empathy-alone conditions (meta analysis)
 model.betas_mean<-lmer(formula=ai_betas_roi_meta_analysis_scaled ~ empathy_ratings_ln_scaled*v_scaled*condition +  (1|id), data = empathy_incentives_df)
 summary(model.betas_mean)
-Anova(model.betas_mean,   type = 3) #Type 3 because of sig. interaction effects.
+Anova(model.betas_mean, type = 3) #Type 3 because of sig. interaction effects.
+r.squaredGLMM(model.betas_mean)
